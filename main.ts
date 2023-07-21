@@ -12,7 +12,6 @@ export default class MarkdownLinkSpaceEncoder extends Plugin {
 				let selection: string = editor.getSelection();
 				let replacedSel: string = selection.replace(/\[[^\]]*\]\([^\)]*\)/g, (match: string): string => {
 					let split: RegExpMatchArray | null = match.match(/(\[.*\])(\(.*\))/);
-					console.log(split);
 					if (split) {
 						return split[1] + split[2].replace(/ /g, '%20');
 					}
