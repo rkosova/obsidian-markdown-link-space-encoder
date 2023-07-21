@@ -10,4 +10,4 @@ A simple Obsidian plugin to encode spaces in selected text to %20. Useful for Ma
 
 ## Example
 
-![Example Gif of Usage](https://imgur.com/a/brFYMAY)
+![Example Gif of Usage](./img/example.gif)
