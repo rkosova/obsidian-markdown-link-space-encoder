@@ -10,14 +10,20 @@ export default class MarkdownLinkSpaceEncoder extends Plugin {
 			name: 'Encode spaces to %20',
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				let selection: string = editor.getSelection();
-				let split = selection.match(/(\[.*\])(\(.*\))/);
-				if (split) {
-					let link = split[2].replace(/ /g, '%20');
-					editor.replaceSelection(split[1] + link);
-				} else {
-					editor.replaceSelection(selection);
-					new Notice("No link in selection, or incorrect formatting!");
+				let replacedSel: string = selection.replace(/\[[^\]]*\]\([^\)]*\)/g, (match: string): string => {
+					let split: RegExpMatchArray | null = match.match(/(\[.*\])(\(.*\))/);
+					console.log(split);
+					if (split) {
+						return split[1] + split[2].replace(/ /g, '%20');
+					}
+
+					return match;
+				});
+
+				if (replacedSel === selection) {
+					new Notice('No link in selection or incorrect link formatting!');
 				}
+				editor.replaceSelection(replacedSel);
 			}
 		});
 
